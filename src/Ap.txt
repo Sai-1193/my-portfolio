@@ -1,0 +1,590 @@
+import React, { useEffect, useState } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Link,
+} from "react-router-dom";
+
+import { motion } from "framer-motion";
+import { Mail, Phone, BadgeCheck, Code } from "lucide-react";
+import { FaEnvelope, FaPhoneAlt, FaCode, FaUser, FaJava, FaAngular, FaDocker, FaAws, FaTools, FaStar, FaCertificate, FaGraduationCap, FaHeart } from "react-icons/fa";
+import { SiSpringboot, SiKubernetes, SiGooglecloud, SiTerraform, SiIced } from "react-icons/si";
+
+const navbarStyle: React.CSSProperties = {
+  backgroundColor: "#87CEEB",
+  padding: "16px",
+  color: "#000",
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  flexWrap: "wrap",
+};
+
+const navLinkStyle: React.CSSProperties = {
+  margin: "0 12px",
+  fontSize: "16px",
+  textDecoration: "none",
+  color: "black",
+};
+
+const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    // <nav style={navbarStyle}>
+    //   <motion.div
+    //     initial={{ opacity: 0, y: -10 }}
+    //     animate={{ opacity: 1, y: 0 }}
+    //     transition={{ duration: 0.5 }}
+    //     style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}
+    //   >
+    //     <Link to="/" style={navLinkStyle}>About</Link>
+    //     <Link to="/tech" style={navLinkStyle}>Tech Stack</Link>
+    //     <Link to="/projects" style={navLinkStyle}>Projects</Link>
+    //     <Link to="/experience" style={navLinkStyle}>Experience</Link>
+    //     <Link to="/blog" style={navLinkStyle}>Blog</Link>
+    //     <Link to="/interests" style={navLinkStyle}>Interests</Link>
+    //     <Link to="/books" style={navLinkStyle}>Books</Link>
+    //   </motion.div>
+    // </nav>
+    <nav style={{ backgroundColor: '#1f2937', padding: '1rem' }}>
+    <ul style={{ display: 'flex', gap: '1rem', listStyle: 'none', color: 'white', margin: 0 }}>
+      <li><Link style={{ color: 'white', textDecoration: 'none' }} to="/">About</Link></li>
+      <li><Link style={{ color: 'white', textDecoration: 'none' }} to="/tech">Tech Stack</Link></li>
+      <li><Link style={{ color: 'white', textDecoration: 'none' }} to="/projects">Projects</Link></li>
+      <li><Link style={{ color: 'white', textDecoration: 'none' }} to="/experience">Experience</Link></li>
+      <li><Link style={{ color: 'white', textDecoration: 'none' }} to="/blog">Blog</Link></li>
+      <li><Link style={{ color: 'white', textDecoration: 'none' }} to="/interests">Interests</Link></li>
+      <li><Link style={{ color: 'white', textDecoration: 'none' }} to="/books">Books</Link></li>
+    </ul>
+  </nav>
+  );
+};
+const FadeSlide: React.FC<{ children: React.ReactNode; delay?: number }> = ({ children, delay = 0 }) => {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const timeout = setTimeout(() => setVisible(true), delay);
+    return () => clearTimeout(timeout);
+  }, [delay]);
+  return (
+    <div
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0)" : "translateY(20px)",
+        transition: "opacity 0.6s ease-out, transform 0.6s ease-out",
+      }}
+    >
+      {children}
+    </div>
+  );
+};
+// const About = () => (
+//   <motion.section
+//     initial={{ opacity: 0 }}
+//     animate={{ opacity: 1 }}
+//     transition={{ duration: 1 }}
+//     style={{
+//       display: "flex",
+//       flexDirection: "row",
+//       padding: "40px",
+//       minHeight: "80vh",
+//       backgroundImage: "url('/test.jpeg')",
+//       backgroundSize: "cover",
+//       backgroundPosition: "center",
+//       color: "white",
+//     }}
+//   >
+//     <motion.div
+//       initial={{ x: -30, opacity: 0 }}
+//       animate={{ x: 0, opacity: 1 }}
+//       transition={{ duration: 1 }}
+//       style={{ flex: 1, paddingRight: "24px" }}
+//     >
+//       <h1 style={{ fontSize: "2rem", fontWeight: "300" }}>Hi, I am</h1>
+//       <h2 style={{ fontSize: "3rem", fontWeight: "700" }}>Sai Kavya Katta</h2>
+//       <p style={{ fontSize: "1.5rem", fontWeight: "500" }}>Full Stack Developer</p>
+//       <p style={{ fontSize: "1rem" }}>
+//         Email:{" "}
+//         <a href="mailto:katta.saikavya@gmail.com" style={{ color: "#FFD700" }}>
+//           katta.saikavya@gmail.com
+//         </a>
+//       </p>
+//       <p style={{ fontSize: "1rem" }}>
+//         Phone:{" "}
+//         <a href="tel:+12163561021" style={{ color: "#FFD700" }}>
+//           +1 (216) 356-1021
+//         </a>
+//       </p>
+//       <div style={{ paddingTop: "16px", fontSize: "1rem", fontWeight: 500 }}>
+//         <p>6+ years of experience in designing, developing, and deploying scalable web applications and enterprise solutions.</p>
+//         <p>Proficient in Java, Spring Boot, Angular, RESTful APIs, Docker, Kubernetes, AWS, GCP, Terraform, and CI/CD pipelines.</p>
+//       </div>
+//     </motion.div>
+
+//     <motion.div
+//       initial={{ x: 30, opacity: 0 }}
+//       animate={{ x: 0, opacity: 1 }}
+//       transition={{ duration: 1 }}
+//       style={{
+//         flex: 1,
+//         display: "flex",
+//         justifyContent: "center",
+//         alignItems: "center",
+//       }}
+//     >
+//       <img
+//         src="/test3.jpeg"
+//         alt="Anime character"
+//         style={{
+//           maxHeight: "400px",
+//           borderRadius: "12px",
+//           boxShadow: "0 8px 20px rgba(0, 0, 0, 0.4)",
+//         }}
+//       />
+//     </motion.div>
+//   </motion.section>
+// );
+/*const About = () => (
+  <motion.section
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ duration: 1 }}
+    style={{
+      display: "flex",
+      flexDirection: "row",
+      padding: "60px",
+      minHeight: "100vh",
+      backgroundImage: "linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/test2.jpg')",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      color: "white",
+    }}
+  >
+    <motion.div
+      initial={{ x: -30, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      transition={{ duration: 1 }}
+      style={{ flex: 1, paddingRight: "24px" }}
+    >
+      <h1 style={{ fontSize: "2rem", fontWeight: "300", color: "#ffdede" }}>Hi, I am</h1>
+      <h2 style={{ fontSize: "3.5rem", fontWeight: "700", color: "#ffffff" }}>Sai Kavya Katta</h2>
+      <p style={{ fontSize: "1.5rem", fontWeight: "500", color: "#ffeeaa" }}>Full Stack Developer</p>
+      <p style={{ fontSize: "1.1rem" }}>
+        Email:{" "}
+        <a href="mailto:katta.saikavya@gmail.com" style={{ color: "#ffc0cb" }}>
+          katta.saikavya@gmail.com
+        </a>
+      </p>
+      <p style={{ fontSize: "1.1rem" }}>
+        Phone:{" "}
+        <a href="tel:+12163561021" style={{ color: "#ffc0cb" }}>
+          +1 (216) 356-1021
+        </a>
+      </p>
+      <div style={{ paddingTop: "20px", fontSize: "1.1rem", fontWeight: 400 }}>
+        <p>
+          <strong>6+ years</strong> of experience in designing, developing, and deploying scalable web applications and enterprise solutions.
+        </p>
+        <p>
+          Proficient in <strong>Java, Spring Boot, Angular, RESTful APIs, Docker, Kubernetes, AWS, GCP, Terraform</strong>, and <strong>CI/CD pipelines</strong>.
+        </p>
+      </div>
+    </motion.div>
+
+    <motion.div
+      initial={{ x: 30, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      transition={{ duration: 1 }}
+      style={{
+        flex: 1,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <img
+        src="/test3.jpeg"
+        alt="Anime character"
+        style={{
+          maxHeight: "400px",
+          borderRadius: "12px",
+          boxShadow: "0 8px 40px rgba(255, 255, 255, 0.3)",
+        }}
+      />
+    </motion.div>
+  </motion.section>
+);*/
+const About = () => (
+  <section
+  style={{
+    minHeight: "100vh",        // fills viewport height at least
+    width: "100%",             // full width
+    padding: "3rem 8vw",       // comfortable padding
+    boxSizing: "border-box",
+    backgroundImage:
+      "linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), url(https://wallpaperaccess.com/full/2637581.jpg)",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    color: "white",
+    display: "flex",
+    flexDirection: "column",
+    gap: "3rem",
+  }}
+  // style={{
+  //   minHeight: "100vh",
+  //   backgroundImage:
+  //     "linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url(https://wallpaperaccess.com/full/2637581.jpg)",
+  //   backgroundSize: "cover",
+  //   backgroundPosition: "center",
+  //   color: "white",
+  //   padding: "3rem 5vw",
+  //   boxSizing: "border-box",
+  //   display: "flex",
+  //   justifyContent: "center",
+  // }}
+>
+  <div
+    style={{
+      display: "flex",
+      flexWrap: "wrap",
+      maxWidth: 1100,
+      width: "100%",
+      gap: "3rem",
+      backgroundColor: "rgba(0,0,0,0.6)",
+      borderRadius: 12,
+      padding: "3rem 3rem 3rem 4rem",
+      boxSizing: "border-box",
+      alignItems: "flex-start",
+    }}
+  >
+    {/* Profile Image */}
+    <FadeSlide delay={100}>
+      <div
+        style={{
+          flex: "0 0 180px",
+          maxWidth: 180,
+          borderRadius: "50%",
+          overflow: "hidden",
+          border: "4px solid white",
+          boxShadow: "0 0 15px rgba(255, 255, 255, 0.4)",
+        }}
+      >
+        <img
+          src="/test4.jpeg"
+          alt="Profile"
+          style={{ width: "100%", display: "block" }}
+        />
+      </div>
+    </FadeSlide>
+
+    {/* Info Content */}
+    <div style={{ flex: "1 1 0", minWidth: 280 }}>
+      <FadeSlide delay={200}>
+        <h1 style={{ fontSize: "2.8rem", marginBottom: 6, fontWeight: 400 }}>
+          Hi, I am
+        </h1>
+        <h2
+          style={{
+            fontSize: "3rem",
+            fontWeight: "bold",
+            marginTop: 0,
+            marginBottom: "0.8rem",
+            lineHeight: 1.1,
+          }}
+        >
+          Sai Kavya Katta
+        </h2>
+        <p
+          style={{
+            fontSize: "1.25rem",
+            fontWeight: 600,
+            display: "flex",
+            alignItems: "center",
+            gap: "0.6rem",
+            marginBottom: "1.5rem",
+          }}
+        >
+          <FaUser />
+          Full Stack Developer
+        </p>
+
+        <p
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.6rem",
+            marginBottom: 4,
+            fontSize: "1.1rem",
+          }}
+        >
+          <FaEnvelope /> katta.saikavya@gmail.com
+        </p>
+        <p
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.6rem",
+            fontSize: "1.1rem",
+            marginBottom: "2rem",
+          }}
+        >
+          <FaPhoneAlt /> +1 (216) 356-1021
+        </p>
+      </FadeSlide>
+
+      <FadeSlide delay={300}>
+        <h3
+          style={{
+            fontSize: "1.7rem",
+            marginBottom: "0.6rem",
+            borderBottom: "2px solid #38bdf8",
+            paddingBottom: "4px",
+            maxWidth: 240,
+            fontWeight: 600,
+          }}
+        >
+          🚀 Professional Summary
+        </h3>
+        <p style={{ lineHeight: 1.5, fontSize: "1.1rem" }}>
+          I specialize in building scalable microservices and cloud-native
+          applications using Java, Spring Boot, and modern DevOps practices.
+          Passionate about clean architecture, performance tuning, and
+          cross-functional collaboration.
+        </p>
+      </FadeSlide>
+
+      <FadeSlide delay={400}>
+        <h3
+          style={{
+            fontSize: "1.7rem",
+            marginTop: "2.5rem",
+            marginBottom: "0.6rem",
+            borderBottom: "2px solid #38bdf8",
+            paddingBottom: "4px",
+            maxWidth: 240,
+            fontWeight: 600,
+            display: "flex",
+            alignItems: "center",
+            gap: "0.4rem",
+          }}
+        >
+          <FaCode />
+          Technical Proficiencies
+        </h3>
+        <ul style={{ paddingLeft: "1.25rem", fontSize: "1.1rem", lineHeight: 1.6 }}>
+          <li>
+            <FaJava /> Java, <SiSpringboot /> Spring Boot, <FaAngular /> Angular,
+            REST APIs
+          </li>
+          <li>
+            <FaDocker /> Docker, <SiKubernetes /> Kubernetes, <FaAws /> AWS,{" "}
+            <SiGooglecloud /> GCP
+          </li>
+          <li>
+            <SiTerraform /> Terraform, <FaTools /> CI/CD
+          </li>
+        </ul>
+      </FadeSlide>
+
+      <FadeSlide delay={500}>
+        <h3
+          style={{
+            fontSize: "1.7rem",
+            marginTop: "2.5rem",
+            marginBottom: "0.6rem",
+            borderBottom: "2px solid #38bdf8",
+            paddingBottom: "4px",
+            maxWidth: 240,
+            fontWeight: 600,
+            display: "flex",
+            alignItems: "center",
+            gap: "0.4rem",
+          }}
+        >
+          <FaStar />
+          Career Highlights
+        </h3>
+        <ul style={{ paddingLeft: "1.25rem", fontSize: "1.1rem", lineHeight: 1.6 }}>
+          <li>Reduced application load time by 40% by refactoring legacy code</li>
+          <li>Led a team of 4 developers to deliver a fintech MVP in 3 months</li>
+          <li>Migrated on-premise workloads to GCP, saving $10K/year in infra costs</li>
+        </ul>
+      </FadeSlide>
+
+      <FadeSlide delay={600}>
+        <h3
+          style={{
+            fontSize: "1.7rem",
+            marginTop: "2.5rem",
+            marginBottom: "0.6rem",
+            borderBottom: "2px solid #38bdf8",
+            paddingBottom: "4px",
+            maxWidth: 240,
+            fontWeight: 600,
+            display: "flex",
+            alignItems: "center",
+            gap: "0.4rem",
+          }}
+        >
+          <FaCertificate />
+          Certifications
+        </h3>
+        <ul style={{ paddingLeft: "1.25rem", fontSize: "1.1rem", lineHeight: 1.6 }}>
+          <li>AWS Certified Solutions Architect – Associate</li>
+          <li>Certified Kubernetes Administrator (CKA)</li>
+          <li>Terraform Associate – HashiCorp</li>
+        </ul>
+      </FadeSlide>
+
+      <FadeSlide delay={700}>
+        <h3
+          style={{
+            fontSize: "1.7rem",
+            marginTop: "2.5rem",
+            marginBottom: "0.6rem",
+            borderBottom: "2px solid #38bdf8",
+            paddingBottom: "4px",
+            maxWidth: 240,
+            fontWeight: 600,
+            display: "flex",
+            alignItems: "center",
+            gap: "0.4rem",
+          }}
+        >
+          <FaGraduationCap />
+          Education
+        </h3>
+        <ul style={{ paddingLeft: "1.25rem", fontSize: "1.1rem", lineHeight: 1.6 }}>
+          <li>M.S. in Computer Science, Cleveland State University</li>
+          <li>B.Tech in Information Technology, JNTU Hyderabad</li>
+        </ul>
+      </FadeSlide>
+
+      <FadeSlide delay={800}>
+        <h3
+          style={{
+            fontSize: "1.7rem",
+            marginTop: "2.5rem",
+            marginBottom: "0.6rem",
+            borderBottom: "2px solid #38bdf8",
+            paddingBottom: "4px",
+            maxWidth: 240,
+            fontWeight: 600,
+            display: "flex",
+            alignItems: "center",
+            gap: "0.4rem",
+          }}
+        >
+          <FaHeart />
+          Personal Interests
+        </h3>
+        <p style={{ fontSize: "1.1rem", lineHeight: 1.5 }}>
+          🧘 Yoga enthusiast | 📚 Avid reader of sci-fi novels | 🎨 Aspiring digital
+          artist
+        </p>
+      </FadeSlide>
+    </div>
+  </div>
+</section>
+);
+
+const Experience = () => {
+  const [tab, setTab] = useState<keyof typeof tabs>("amex");
+
+  const tabs = {
+    amex: {
+      title: "American Express",
+      period: "Oct 2023 – Dec 2024",
+      role: "Java Full Stack Developer",
+      desc: "Designed and developed validation services using Spring Boot and Angular 13+, deployed on OpenShift.",
+    },
+    engie: {
+      title: "Engie Impact",
+      period: "Jan 2022 – Oct 2023",
+      role: "Java Full Stack Developer",
+      desc: "Built distributed microservices on GCP, integrated with Angular, Docker, and Kubernetes.",
+    },
+    erwin: {
+      title: "Erwin",
+      period: "Jun 2018 – Aug 2021",
+      role: "Java Full Stack Developer",
+      desc: "Developed full-stack apps using Spring Boot, Angular, PostgreSQL, MongoDB, and deployed using Docker/K8s.",
+    },
+  };
+
+  return (
+    <div style={{ padding: "40px" }}>
+      <div style={{ marginBottom: "20px" }}>
+        {Object.keys(tabs).map((key) => (
+          <button
+            key={key}
+            onClick={() => setTab(key as keyof typeof tabs)}
+            style={{
+              padding: "8px 16px",
+              marginRight: "8px",
+              borderRadius: "6px",
+              backgroundColor: tab === key ? "#4682B4" : "#ccc",
+              color: tab === key ? "#fff" : "#000",
+              border: "none",
+              cursor: "pointer",
+            }}
+          >
+            {tabs[key as keyof typeof tabs].title}
+          </button>
+        ))}
+      </div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.4 }}
+      >
+        <h2 style={{ fontSize: "1.5rem", fontWeight: "bold" }}>{tabs[tab].title}</h2>
+        <p>{tabs[tab].role} | {tabs[tab].period}</p>
+        <p>{tabs[tab].desc}</p>
+      </motion.div>
+    </div>
+  );
+};
+
+const Blog = () => (
+  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} style={{ padding: "40px" }}>
+    <h2 style={{ fontSize: "1.5rem", fontWeight: "bold" }}>Blog</h2>
+    <ul>
+      <li>Professional Posts – Case studies and real-world learnings</li>
+      <li>Tech Stories – Tools, technologies, and developer tips</li>
+    </ul>
+  </motion.div>
+);
+
+const Books = () => (
+  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} style={{ padding: "40px" }}>
+    <h2 style={{ fontSize: "1.5rem", fontWeight: "bold" }}>Books</h2>
+    <ul>
+      <li>Books I've Read</li>
+      <li>Recommended Books</li>
+      <li>Want to Read</li>
+    </ul>
+  </motion.div>
+);
+
+const App: React.FC = () => {
+  return (
+    <Router>
+      <div style={{ fontFamily: "sans-serif", minHeight: "100vh", backgroundColor: "#f0f8ff" }}>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<About />} />
+          <Route path="/tech" element={<div style={{ padding: "40px" }}>Tech Stack</div>} />
+          <Route path="/projects" element={<div style={{ padding: "40px" }}>Projects</div>} />
+          <Route path="/experience" element={<Experience />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/interests" element={<div style={{ padding: "40px" }}>Interests</div>} />
+          <Route path="/books" element={<Books />} />
+        </Routes>
+      </div>
+    </Router>
+  );
+};
+
+export default App;
