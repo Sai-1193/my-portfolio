@@ -468,13 +468,37 @@
 // Anime-style Portfolio App - Abhishek Ganvir inspired full layout with animation
 // Required: react, framer-motion, react-icons, react-scroll, react-simple-typewriter
 
-import React, { useState } from "react";
+import React, { JSX, useState } from "react";
 import { motion } from "framer-motion";
-import { FaGithub, FaLinkedin, FaInstagram, FaEnvelope } from "react-icons/fa";
-import { SiHtml5, SiCss3, SiJavascript, SiTailwindcss, SiExpress, SiNodedotjs, SiReact, SiMongodb, SiJsonwebtokens, SiPostgresql, SiTypescript, SiDocker } from "react-icons/si";
+
+import {
+    SiHtml5,
+    SiCss3,
+    SiJavascript,
+    SiTailwindcss,
+    SiExpress,
+    SiNodedotjs,
+    SiReact,
+    SiMongodb,
+    SiJsonwebtokens,
+    SiPostgresql,
+    SiTypescript,
+    SiDocker
+  } from "react-icons/si";
+  
+  import {
+    FaLinkedin,
+    FaInstagram,
+    FaGithub,
+    FaEnvelope
+  } from "react-icons/fa";
+  
+
 import { useTypewriter } from "react-simple-typewriter";
 import { Link, animateScroll as scroll } from "react-scroll";
-
+import { Route, Routes } from "react-router-dom";
+import ProjectDetails from "./ProjectDetails";
+import { useNavigate } from 'react-router-dom';
 const fadeInUp = {
   initial: { opacity: 0, y: 40 },
   animate: { opacity: 1, y: 0 },
@@ -503,11 +527,14 @@ export default function App() {
     scroll.scrollTo(document.getElementById("portfolio")!.offsetTop - 80);
   };
 
+
+  const navigate = useNavigate();
+  
   const portfolioItems = [
-    { title: "IntervueAI", desc: "Real-time mock interviews with AI, no forms or clicks just natural, personalized conversations.", demo: "#", details: "#" },
-    { title: "Blendy", desc: "A social app where you can connect in real-time, log in with one click, share moments, posts instantly.", demo: "#", details: "#" },
-    { title: "WATCHit", desc: "A video streaming app made for easy, personal entertainment and everything you love to binge.", demo: "#", details: "#" },
-    { title: "Leafchat", desc: "A chat app with a smooth, natural feel leafy UI, falling leaves, and calming sounds like an autumn breeze.", demo: "#", details: "#" }
+    { id: '1', title: "IntervueAI", desc: "Real-time mock interviews with AI, no forms or clicks just natural, personalized conversations.", demo: "#", details: "#" },
+    { id: '2', title: "Blendy", desc: "A social app where you can connect in real-time, log in with one click, share moments, posts instantly.", demo: "#", details: "#" },
+    { id: '3', title: "WATCHit", desc: "A video streaming app made for easy, personal entertainment and everything you love to binge.", demo: "#", details: "#" },
+    { id: '4', title: "Leafchat", desc: "A chat app with a smooth, natural feel leafy UI, falling leaves, and calming sounds like an autumn breeze.", demo: "#", details: "#" }
   ];
 
   const certificates = [
@@ -517,6 +544,7 @@ export default function App() {
   ];
 
   const techStack = [
+   
     { icon: <SiHtml5 color="#E34F26" />, label: "HTML" },
     { icon: <SiCss3 color="#1572B6" />, label: "CSS" },
     { icon: <SiJavascript color="#F7DF1E" />, label: "JavaScript" },
@@ -532,6 +560,8 @@ export default function App() {
   ];
 
   return (
+    <Routes>
+        <Route path="/" element={
     <>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap');
@@ -1075,9 +1105,9 @@ export default function App() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
           >
-            {portfolioItems.map(({ title, desc, demo, details }) => (
+            {portfolioItems.map(({ id, title, desc, demo, details }) => (
               <motion.div
-                key={title}
+              key={id}  // change here
                 className="project-card"
                 {...cardHover}
                 tabIndex={0}
@@ -1096,15 +1126,20 @@ export default function App() {
                   >
                     Live Demo
                   </a>
-                  <a
+                  {/* <a
                     className="details-link"
                     href={details}
                     target="_blank"
                     rel="noopener noreferrer"
                     tabIndex={-1}
-                  >
-                    Details
-                  </a>
+                  > */}
+                    {/* <Link  to={`/project/${id}`} className="details-link">
+  Details
+</Link> */}
+<button className="details-link" onClick={() => navigate(`/project/${id}`)}>Details</button>
+
+                    
+                  {/* </a> */}
                 </div>
               </motion.div>
             ))}
@@ -1289,6 +1324,10 @@ export default function App() {
         © 2025 - All Rights Reserved.
       </footer>
     </>
+        } />
+        <Route path="/project/:projectId" element={<ProjectDetails />} />
+         {/* <Route path="/project/:id" element={<ProjectDetails />} /> */}
+    </Routes>
   );
 }
 
